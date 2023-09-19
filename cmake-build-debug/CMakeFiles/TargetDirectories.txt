@@ -1,0 +1,3 @@
+/home/aleprominecraft/Documents/github/OdisseyRadio/cmake-build-debug/CMakeFiles/OdisseyRadio.dir
+/home/aleprominecraft/Documents/github/OdisseyRadio/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/aleprominecraft/Documents/github/OdisseyRadio/cmake-build-debug/CMakeFiles/rebuild_cache.dir
