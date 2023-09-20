@@ -31,7 +31,7 @@
             <property name="can-focus">False</property>
             <property name="label" translatable="yes">Memory Usage:</property>
             <attributes>
-              <attribute name="font-desc" value="Sans Italic 14"/>
+              <attribute name="font-desc" value="Serif Bold 14"/>
             </attributes>
           </object>
           <packing>
@@ -46,12 +46,59 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <attributes>
-              <attribute name="font-desc" value="Sans Italic 14"/>
+              <attribute name="font-desc" value="Serif Bold 14"/>
+              <attribute name="foreground" value="#3333d1d17a7a"/>
             </attributes>
           </object>
           <packing>
-            <property name="x">612</property>
+            <property name="x">628</property>
             <property name="y">296</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTreeView" id="TreeView">
+            <property name="width-request">196</property>
+            <property name="height-request">293</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+          <packing>
+            <property name="x">33</property>
+            <property name="y">36</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="Exit">
+            <property name="label">gtk-quit</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="relief">none</property>
+            <property name="use-stock">True</property>
+            <property name="always-show-image">True</property>
+            <signal name="clicked" handler="exit_app" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">609</property>
+            <property name="y">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="PruebaArduino">
+            <property name="label" translatable="yes">Prueba del arduino :)</property>
+            <property name="width-request">151</property>
+            <property name="height-request">34</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="pruebaArduino" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">256</property>
+            <property name="y">289</property>
           </packing>
         </child>
       </object>
