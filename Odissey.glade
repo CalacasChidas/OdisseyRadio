@@ -4,8 +4,8 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="window">
     <property name="can-focus">False</property>
-    <property name="default-width">720</property>
-    <property name="default-height">350</property>
+    <property name="default-width">800</property>
+    <property name="default-height">300</property>
     <child>
       <object class="GtkFixed">
         <property name="visible">True</property>
@@ -19,13 +19,13 @@
             <property name="margin-left">2</property>
           </object>
           <packing>
-            <property name="x">461</property>
-            <property name="y">288</property>
+            <property name="x">8</property>
+            <property name="y">284</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="width-request">145</property>
+            <property name="width-request">163</property>
             <property name="height-request">23</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -35,14 +35,14 @@
             </attributes>
           </object>
           <packing>
-            <property name="x">462</property>
-            <property name="y">295</property>
+            <property name="x">5</property>
+            <property name="y">286</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel" id="memoryPercent">
             <property name="width-request">42</property>
-            <property name="height-request">20</property>
+            <property name="height-request">23</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <attributes>
@@ -51,32 +51,15 @@
             </attributes>
           </object>
           <packing>
-            <property name="x">628</property>
-            <property name="y">296</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkTreeView" id="TreeView">
-            <property name="width-request">196</property>
-            <property name="height-request">293</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="search-column">3</property>
-            <property name="level-indentation">3</property>
-            <property name="enable-grid-lines">vertical</property>
-            <property name="tooltip-column">3</property>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection"/>
-            </child>
-          </object>
-          <packing>
-            <property name="x">33</property>
-            <property name="y">36</property>
+            <property name="x">170</property>
+            <property name="y">289</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="Exit">
             <property name="label">gtk-quit</property>
+            <property name="width-request">62</property>
+            <property name="height-request">34</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
@@ -86,23 +69,93 @@
             <signal name="clicked" handler="exit_app" swapped="no"/>
           </object>
           <packing>
-            <property name="x">609</property>
-            <property name="y">7</property>
+            <property name="x">9</property>
+            <property name="y">6</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="PruebaArduino">
-            <property name="label" translatable="yes">Prueba del arduino :)</property>
+            <property name="label">gtk-media-pause</property>
             <property name="width-request">151</property>
             <property name="height-request">34</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="use-stock">True</property>
+            <property name="always-show-image">True</property>
             <signal name="clicked" handler="pruebaArduino" swapped="no"/>
           </object>
           <packing>
-            <property name="x">256</property>
-            <property name="y">289</property>
+            <property name="x">5</property>
+            <property name="y">248</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTreeView" id="TreeView">
+            <property name="width-request">305</property>
+            <property name="height-request">129</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="margin-bottom">147</property>
+            <signal name="row-activated" handler="on_row_activated" swapped="no"/>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection"/>
+            </child>
+          </object>
+          <packing>
+            <property name="x">238</property>
+            <property name="y">57</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="Up">
+            <property name="label">gtk-sort-descending</property>
+            <property name="width-request">89</property>
+            <property name="height-request">46</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="use-stock">True</property>
+            <property name="image-position">top</property>
+            <property name="always-show-image">True</property>
+            <signal name="clicked" handler="subirLista" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">698</property>
+            <property name="y">77</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="Down">
+            <property name="label">gtk-sort-ascending</property>
+            <property name="width-request">90</property>
+            <property name="height-request">46</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="use-stock">True</property>
+            <property name="image-position">bottom</property>
+            <property name="always-show-image">True</property>
+            <signal name="clicked" handler="bajarLista" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">699</property>
+            <property name="y">131</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="paginar">
+            <property name="label" translatable="yes">Pager</property>
+            <property name="width-request">149</property>
+            <property name="height-request">34</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <signal name="clicked" handler="paginar" swapped="no"/>
+          </object>
+          <packing>
+            <property name="x">7</property>
+            <property name="y">206</property>
           </packing>
         </child>
       </object>

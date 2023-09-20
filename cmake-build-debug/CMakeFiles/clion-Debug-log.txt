@@ -1,7 +1,4 @@
 /app/extra/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/app/extra/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/aleprominecraft/Documents/github/OdisseyRadio -B /home/aleprominecraft/Documents/github/OdisseyRadio/cmake-build-debug
--- Found PkgConfig: /usr/bin/pkg-config (found version "2.0.2") 
--- Checking for module 'gtk+-3.0'
---   Found gtk+-3.0, version 3.24.38
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/aleprominecraft/Documents/github/OdisseyRadio/cmake-build-debug

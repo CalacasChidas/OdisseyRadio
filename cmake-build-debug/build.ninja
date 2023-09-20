@@ -66,7 +66,7 @@ build CMakeFiles/OdisseyRadio.dir/main.cpp.o: CXX_COMPILER__OdisseyRadio_Debug /
 
 build OdisseyRadio: CXX_EXECUTABLE_LINKER__OdisseyRadio_Debug CMakeFiles/OdisseyRadio.dir/main.cpp.o
   FLAGS = -g
-  LINK_LIBRARIES = -lgtk-3  -lgdk-3  -lharfbuzz  -lpangocairo-1.0  -lpango-1.0  -latk-1.0  -lcairo  -lcairo-gobject  -lgdk_pixbuf-2.0  -lgio-2.0  -lglib-2.0  -lgobject-2.0
+  LINK_LIBRARIES = -lgtk-3  -lgdk-3  -lharfbuzz  -lpangocairo-1.0  -lpango-1.0  -latk-1.0  -lcairo  -lcairo-gobject  -lgdk_pixbuf-2.0  -lgio-2.0  -lglib-2.0  -lgobject-2.0  -lgtk-3  -lgdk-3  -lharfbuzz  -lpangocairo-1.0  -lpango-1.0  -latk-1.0  -lcairo  -lcairo-gobject  -lgdk_pixbuf-2.0  -lgio-2.0  -lglib-2.0  -lgobject-2.0  -lSDL2
   OBJECT_DIR = CMakeFiles/OdisseyRadio.dir
   POST_BUILD = :
   PRE_LINK = :
