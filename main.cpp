@@ -1,19 +1,63 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <iomanip>
 
-GtkWidget *window, *play;
+struct Song {
+    std::string title;
+    std::string artist;
+    std::string album;
+};
+
+GtkWidget *window, *PruebaArduino, *Exit;
 GtkLabel *memoryLabel;
 GtkProgressBar *progressMemory;
 
+std::vector<Song> loadLibraryFromCSV(const std::string& csvFilePath) {
+    std::vector<Song> library;
+
+    // Abre el archivo CSV
+    std::ifstream csvFile(csvFilePath);
+    if (!csvFile.is_open()) {
+        std::cerr << "Error al abrir el archivo CSV" << std::endl;
+        return library;
+    }
+
+    std::string line;
+    while (std::getline(csvFile, line)) {
+        std::istringstream iss(line);
+        std::string title, artist, album;
+        if (std::getline(iss, title, ',') &&
+            std::getline(iss, artist, ',') &&
+            std::getline(iss, album)) {
+            library.push_back({title, artist, album});
+        }
+    }
+
+    // Cierra el archivo CSV
+    csvFile.close();
+
+    return library;
+}
+void pruebaArduino(){
+    std::cout << "Si funciona!\n";
+}
 
 double getMemoryUsage(){
     std::ifstream meminfo("/proc/meminfo");
     std::string line;
+
+    // Ruta al archivo CSV de canciones
+    std::string csvFilePath = "/home/aleprominecraft/Documents/github/OdisseyRadio/fma-master";
+    std::vector<Song> library = loadLibraryFromCSV(csvFilePath);
+    for (const Song& song : library) {
+        std::cout << "Título: " << song.title << ", Artista: " << song.artist << ", Álbum: " << song.album << std::endl;
+    }
+
     double total_mem = 0.0;
     double available_mem = 0.0;
 
@@ -62,6 +106,10 @@ gboolean updateLabel(GtkLabel *label) {
     // Devuelve TRUE para que el temporizador siga ejecutándose
     return TRUE;
 }
+void exit_app(){
+    std::cout << "Closing app!\n";
+    gtk_main_quit();
+}
 
 
 int main(int argc, char *argv[]) {
@@ -75,11 +123,12 @@ int main(int argc, char *argv[]) {
     window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
     memoryLabel = GTK_LABEL(gtk_builder_get_object(builder, "memoryPercent"));
     progressMemory = GTK_PROGRESS_BAR(gtk_builder_get_object(builder, "progressMemory"));
-
-    //play = GTK_WIDGET(gtk_builder_get_object(builder, "play"));
+    Exit = GTK_WIDGET(gtk_builder_get_object(builder, "Exit"));
+    PruebaArduino = GTK_WIDGET(gtk_builder_get_object(builder, "PruebaArduino"));
 
     //Declaración de llamadas de funciones
-    //g_signal_connect(play, "clicked", G_CALLBACK(play_), NULL);
+    g_signal_connect(Exit, "clicked", G_CALLBACK(exit_app), NULL);
+    g_signal_connect(PruebaArduino, "clicked", G_CALLBACK(pruebaArduino), NULL);
 
     gtk_builder_connect_signals(builder, NULL);
     g_object_unref(builder);
