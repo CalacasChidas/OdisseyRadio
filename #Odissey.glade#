@@ -68,6 +68,21 @@
             <child internal-child="selection">
               <object class="GtkTreeSelection"/>
             </child>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <property name="title" translatable="yes">column</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <property name="title" translatable="yes">column</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn">
+                <property name="title" translatable="yes">column</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="x">33</property>
