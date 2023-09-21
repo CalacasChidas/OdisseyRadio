@@ -7,6 +7,8 @@
 #include <sstream>
 #include <iomanip>
 #include <SDL2/SDL.h>
+#include <SerialStream.h>
+#include <thread>
 
 struct Song {
     std::string title;
@@ -14,6 +16,7 @@ struct Song {
     std::string album;
     std::string audioFilePath;
 };
+
 int base = 0, end = 20;
 GtkWidget *window, *PruebaArduino, *Exit, *TreeView, *Up, *Down, *Pag;
 GtkLabel *memoryLabel;
@@ -203,6 +206,7 @@ void bajarLista(){
     }else{
     }
 }
+
 void paginateLibrary(int currentPage) {
     // Calcula el índice de inicio y fin de la página actual
     int start = currentPage * 3;
@@ -222,7 +226,8 @@ void paginateLibrary(int currentPage) {
     gtk_tree_view_set_model(GTK_TREE_VIEW(TreeView), GTK_TREE_MODEL(listStore));
 }
 
-void paginar() {
+void paginacion() {
+    std::cout << "Paginando\n";
     static int currentPage = 0;
 
     // Incrementa la página actual y reinicia si se alcanza el final
@@ -231,9 +236,34 @@ void paginar() {
     // Pagina y muestra las canciones en el TreeView
     paginateLibrary(currentPage);
 }
+// Function to send a command to the Arduino
+void sendToArduino(LibSerial::SerialStream& arduino, const std::string& message) {
+    arduino << message << std::endl;
+}
+
+void listenForArduino(LibSerial::SerialStream& arduino) {
+    while (true) {
+        std::string response;
+        std::getline(arduino, response);
+
+        if (response == "P") {
+            stop(); // Call the stop() function
+        }
+    }
+}
 int main(int argc, char *argv[]) {
     GtkBuilder *builder; // GTK Builder variable
     gtk_init(&argc, &argv); // Start GTK
+    LibSerial::SerialStream arduino("/dev/ttyUSB0", LibSerial::SerialStreamBuf::BAUD_9600);
+    if (!arduino.IsOpen()) {
+        std::cerr << "Error: Couldn't open the Arduino serial port." << std::endl;
+        return 1;
+    }
+
+    // Thread to listen for Arduino messages in the background
+    std::thread listener(listenForArduino, std::ref(arduino));
+
+    arduino.Close();
 
     //Crear un GtkListStore para almacenar los datos de las canciones
     listStore = gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
@@ -255,11 +285,10 @@ int main(int argc, char *argv[]) {
     PruebaArduino = GTK_WIDGET(gtk_builder_get_object(builder, "PruebaArduino"));
     Up = GTK_WIDGET(gtk_builder_get_object(builder, "Up"));
     Down = GTK_WIDGET(gtk_builder_get_object(builder, "Down"));
-    Pag = GTK_WIDGET(gtk_builder_get_object(builder, "Paginar"));
+    Pag = GTK_WIDGET(gtk_builder_get_object(builder, "paginar"));
 
     //TreeView
     TreeView = GTK_WIDGET(gtk_builder_get_object(builder, "TreeView"));
-
     //TreeView = gtk_tree_view_new_with_model(GTK_TREE_MODEL(listStore));
     gtk_tree_view_set_model(GTK_TREE_VIEW(TreeView), GTK_TREE_MODEL(listStore));
     GtkTreeViewColumn* titleColumn = gtk_tree_view_column_new_with_attributes("Título", gtk_cell_renderer_text_new(), "text", 0, NULL);
@@ -276,7 +305,7 @@ int main(int argc, char *argv[]) {
     g_signal_connect(Up, "clicked", G_CALLBACK(subirLista), NULL);
     g_signal_connect(Down, "clicked", G_CALLBACK(bajarLista), NULL);
     g_signal_connect(TreeView, "row-activated", G_CALLBACK(on_row_activated), NULL);
-    g_signal_connect(Pag, "row-activated", G_CALLBACK(paginar), NULL);
+    g_signal_connect(Pag, "row-activated", G_CALLBACK(paginacion), NULL);
 
     gtk_builder_connect_signals(builder, NULL);
     g_object_unref(builder);
