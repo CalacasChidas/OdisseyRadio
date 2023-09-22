@@ -145,13 +145,13 @@
         </child>
         <child>
           <object class="GtkButton" id="paginar">
-            <property name="label" translatable="yes">Pager</property>
+            <property name="label" translatable="yes">Paginar </property>
             <property name="width-request">149</property>
             <property name="height-request">34</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <signal name="clicked" handler="paginar" swapped="no"/>
+            <signal name="clicked" handler="paginacion" swapped="no"/>
           </object>
           <packing>
             <property name="x">7</property>
